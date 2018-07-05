@@ -10,11 +10,26 @@
         </el-input>
       </el-col>
     </el-row>
-    <el-row v-for="(v,k) in items" :key="k">
-      <el-col :span="12" :offset="6" class="text-left">
-       <el-checkbox v-model="doneList" :label="v.name"><span  :class="{done: v.done}">{{k+1}}.{{v.name}}</span></el-checkbox>
+    <el-row>
+      <el-col :span="12" :offset="6">
+        <el-tabs v-model="activeTab" :stretch="true">
+          <el-tab-pane label="全部" name="all" class="text-left">
+            <p v-for="(v,k) in items" :key="k">
+              <el-checkbox v-model="boxs" :label="v.name">
+                <span :class="{done: v.done}">{{k+1}}.{{v.name}}</span>
+              </el-checkbox>
+            </p>
+          </el-tab-pane>
+          <el-tab-pane label="已完成" name="done" class="text-left">
+
+          </el-tab-pane>
+          <el-tab-pane label="未完成" name="todo" class="text-left">
+
+          </el-tab-pane>
+        </el-tabs>
       </el-col>
     </el-row>
+
   </div>
 </template>
 
@@ -25,21 +40,34 @@ export default {
     return {
       item: '',
       items: [],
-      doneList: []
+      boxs: [],
+      doneList: [],
+      todoList: [],
+      activeTab: 'all'
     };
   },
   methods: {
     addItem() {
-      this.items.push({ done: false, name: this.item });
+      if (this.item) {
+        this.items.push({ done: false, name: this.item });
+        this.item = '';
+      } else {
+        this.$message({
+          message: '请先输入添加任务内容!',
+          type: 'error'
+        });
+      }
     }
   }
 };
 </script>
 
 <style lang="stylus" scoped>
-  .Todolist
-    .text-left
-      text-align left
-    .done
-      text-decoration line-through
+.Todolist
+  .el-row
+    margin-top 15px
+  .text-left
+    text-align left
+  .done
+    text-decoration line-through
 </style>
