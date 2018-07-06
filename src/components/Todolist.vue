@@ -16,15 +16,23 @@
           <el-tab-pane label="全部" name="all" class="text-left">
             <p v-for="(v,k) in items" :key="k">
               <el-checkbox v-model="boxs" :label="v.name">
-                <span :class="{done: v.done}">{{k+1}}.{{v.name}}</span>
+                <span :class="{finsh: true}">{{k+1}}.{{v.name}}</span>
               </el-checkbox>
             </p>
           </el-tab-pane>
           <el-tab-pane label="已完成" name="done" class="text-left">
-
+            <p v-for="(v,k) in doneList" :key="k">
+              <el-checkbox :label="v.name">
+                <span :class="{finsh: true}">{{k+1}}.{{v.name}}</span>
+              </el-checkbox>
+            </p>
           </el-tab-pane>
           <el-tab-pane label="未完成" name="todo" class="text-left">
-
+            <p v-for="(v,k) in todoList" :key="k">
+              <el-checkbox :label="v.name">
+                <span :class="{finsh: true}">{{k+1}}.{{v.name}}</span>
+              </el-checkbox>
+            </p>
           </el-tab-pane>
         </el-tabs>
       </el-col>
@@ -68,6 +76,6 @@ export default {
     margin-top 15px
   .text-left
     text-align left
-  .done
+  .finsh
     text-decoration line-through
 </style>
